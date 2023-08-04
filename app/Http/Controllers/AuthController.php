@@ -10,13 +10,16 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     /**
      * @param LoginRequest $request
      * @return Response|JsonResponse
+     * @throws ValidationException
      */
     public function login(LoginRequest $request): Response|JsonResponse
     {
@@ -28,10 +31,11 @@ class AuthController extends Controller
             ],401);
         }
         $token = $user->createToken('deschide_token')->plainTextToken;
-        $cookie = cookie('token',$token,60*24); // 1 day
+
         return response()->json([
             'user' => $user,
-        ])->withCookie($cookie);
+            'token' => $token,
+        ]);
     }
 
     /**
@@ -49,7 +53,10 @@ class AuthController extends Controller
 
     }
 
-    public function user(Request $request){
-        return new UserResource($request->user());
+    public function user(Request $request)
+    {
+        return response()->json([
+            'user' => new UserResource($request->user())
+        ]);
     }
 }
