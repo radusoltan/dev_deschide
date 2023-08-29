@@ -31,11 +31,11 @@ class AuthController extends Controller
             ],401);
         }
         $token = $user->createToken('deschide_token')->plainTextToken;
-
+        $cookie = cookie('token',$token,60*24); // 1 day
         return response()->json([
             'user' => $user,
             'token' => $token,
-        ]);
+        ])->withCookie($cookie);
     }
 
     /**

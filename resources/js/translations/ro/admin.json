@@ -1,0 +1,43 @@
+{
+  "menu": {
+    "dashboard": "Panou de bord",
+    "content": {
+      "head": "Continut",
+      "categories": "Categorii",
+      "articles": "Articole"
+    },
+    "management": {
+      "head": "Management",
+      "users": "Utilizatori",
+      "roles": "Roluri",
+      "permissions": "Permisiuni"
+    }
+  },
+  "pages": {
+    "content": {
+      "categories": {
+        "index": "Categorii",
+        "edit": "Editeaza",
+        "update": "Update",
+        "delete": "Sterge",
+        "add": "Adauga",
+        "table": {
+          "title": "Titlu",
+          "in_menu": "In Meniu",
+          "actions": "Actiuni"
+        },
+        "form": {
+          "title": "Titlu",
+          "in_menu": "In meniu",
+          "error_title": "Titlul nu poate fi gol"
+        },
+        "messages": {
+          "added": "Categorie adaugata cu succes!",
+          "deleted": "Categore stearsa cu succes",
+          "translated": "Categorie tradusa cu succes",
+          "updated": "Categorie tradusa cu succes"
+        }
+      }
+    }
+  }
+}
