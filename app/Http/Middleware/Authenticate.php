@@ -18,6 +18,11 @@ class Authenticate extends Middleware
 
     public function handle($request, Closure $next, ...$guards)
     {
+        if($locale = $request->cookie('i18next')) {
+            app()->setLocale($locale);
+        } else {
+            app()->setLocale('ro');
+        }
         if ($token = $request->cookie('token')) {
             $request->headers->set('Authorization', 'Bearer ' . $token);
         }

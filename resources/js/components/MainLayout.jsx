@@ -4,6 +4,8 @@ import React,{useEffect, useState} from "react"
 import {Button, Layout, Select, Space} from "antd";
 import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 import Auth from "../features/authApi";
+import {Navigation} from "./partials/Navigation";
+import i18n from "./../i18n";
 
 
 export const MainLayout = () => {
@@ -30,7 +32,7 @@ export const MainLayout = () => {
   }
 
   const changeLang = (value) => {
-
+    i18n.changeLanguage(value)
   }
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export const MainLayout = () => {
         collapsed={collapsed}
         breakpoint="lg"
     >
-
+      <Navigation/>
     </Sider>
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{padding: 0}}>
@@ -63,7 +65,7 @@ export const MainLayout = () => {
         <div className="header-buttons">
           <Space>
             <Button type="primary" onClick={handleLogout}>Logout</Button>
-            <Select defaultValue="ro" onChange={changeLang}>
+            <Select defaultValue={i18n.language} onChange={changeLang}>
               <Select.Option value="ro">RO</Select.Option>
               <Select.Option value="en">EN</Select.Option>
               <Select.Option value="ru">RU</Select.Option>
