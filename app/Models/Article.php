@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model implements TranslatableContract
 {
     use HasFactory;
     use Translatable;
+    use SoftDeletes;
 
     public array $translatedAttributes = ['title', 'slug', 'lead', 'body', 'status', 'published_at','publish_at'];
     protected $fillable = ['category_id', 'is_flash', 'is_alert', 'is_breaking', 'old_number'];

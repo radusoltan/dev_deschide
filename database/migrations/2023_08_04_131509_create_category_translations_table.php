@@ -23,7 +23,7 @@ return new class extends Migration
                 ->on('categories')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-
+            $table->softDeletes();
             $table->unique(['category_id','locale', 'slug']);
         });
     }

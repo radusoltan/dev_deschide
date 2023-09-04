@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ArticleTranslation extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     public $timestamps = false;
     protected $fillable = ['title','slug','lead','body','keywords','status', 'published_at','publish_at'];
@@ -28,5 +30,10 @@ class ArticleTranslation extends Model
     public function scopePublished($query)
     {
         return $query->where('status','=','p');
+    }
+
+    public function vzt()
+    {
+        return visits($this);
     }
 }

@@ -79,10 +79,11 @@ export const Categories = () => {
       title: '',
       render: ({ key }) => (
         <><Button
-          type="danger"
+          type="primary"
           className='table-buttons'
           icon={<DeleteOutlined />}
           onClick={() => deleteCategory(key)}
+          danger
         />
         <Button
           type="warning"

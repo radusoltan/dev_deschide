@@ -16,7 +16,6 @@ export const Category = () => {
   const navigate = useNavigate()
   useEffect(() => {
     if (addIsSuccess) {
-      console.log('addIsSuccess', addData)
       const {id} = addData
       setIsNew(false)
       navigate(`/content/article/${id}`)
