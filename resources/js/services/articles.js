@@ -41,7 +41,7 @@ export const articles = createApi({
 		}),
 		updateArticle: builder.mutation({
 			query: ({id, body}) => ({
-				url: `/api/article/${id}`,
+				url: `/api/articles/${id}`,
 				method: "PATCH",
 				body
 			}),

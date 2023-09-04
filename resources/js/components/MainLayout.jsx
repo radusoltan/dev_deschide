@@ -5,7 +5,7 @@ import {Button, Layout, Select, Space} from "antd";
 import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 import Auth from "../features/authApi";
 import {Navigation} from "./partials/Navigation";
-import i18n from "./../i18n";
+import i18n from "../i18n";
 
 
 export const MainLayout = () => {

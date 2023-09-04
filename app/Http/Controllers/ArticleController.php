@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -37,7 +38,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return $article;
     }
 
     /**
@@ -51,9 +52,24 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateArticleRequest $request, Article $article)
+    public function update(UpdateArticleRequest $request, Article $article): Article
     {
-        //
+        $data = $request->validated();
+
+        app()->setLocale($data['locale']);
+
+        $article->update([
+            'title' => $data['title'],
+            'slug' => Str::slug($data['title']),
+            'lead' => $data['lead'],
+            'body' => $data['body'],
+            'is_breaking' => $data['is_breaking'],
+            'is_alert' => $data['is_alert'],
+            'is_flash' => $data['is_flash'],
+            'status' => $data['status'],
+        ]);
+
+        return $article;
     }
 
     /**

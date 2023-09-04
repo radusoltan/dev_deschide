@@ -27,6 +27,7 @@ return new class extends Migration
             $table->enum('status',['N','S','P'])->default('N');
             $table->timestamp('publish_at')->nullable(true);
             $table->timestamp('published_at')->nullable(true);
+            $table->softDeletes();
         });
     }
 

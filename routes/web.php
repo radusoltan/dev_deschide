@@ -13,4 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::any('/firewall/panel/{path?}', function() {
+//
+//    $panel = new \Shieldon\Firewall\Panel();
+//    $panel->csrf(['_token' => csrf_token()]);
+//    $panel->entry();
+//
+//})->where('path', '(.*)');
+
 Route::view('/{path?}','welcome')->where('path','.*');
