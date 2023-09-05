@@ -28,6 +28,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/categories/{category}/articles', [CategoryController::class, 'getCategoryArticles']);
     Route::post('/category/{category}/add-article',[CategoryController::class, 'addArticleToCategory']);
     Route::apiResource('/articles', ArticleController::class);
+    Route::get('/articles/{article}/images', [ArticleController::class, 'getArticleImages']);
+    Route::post('/articles/{article}/images', [ArticleController::class, 'addArticleImages']);
 
 
 

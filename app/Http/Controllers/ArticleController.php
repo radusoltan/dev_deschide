@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use App\Http\Services\ImageService;
 use App\Models\Article;
 use Illuminate\Support\Str;
 
@@ -79,4 +80,24 @@ class ArticleController extends Controller
     {
         //
     }
+
+    public function getArticleImages(Article $article)
+    {
+        return $article->images()->with('thumbnails')->get();
+    }
+
+    public function addArticleImages(Article $article)
+    {
+        $service = new ImageService();
+
+        foreach(request()->images as $file) {
+            $image = $service->uploadImage($file);
+
+            if (!$article->images->contains($image->id)) {
+                $article->images()->attach($image->id);
+            }
+        }
+        return $article->images()->with('thumbnails')->get();
+    }
+
 }

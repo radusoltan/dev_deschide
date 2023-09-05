@@ -4,6 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {BodyEditor} from "../../../components/content/articles/editor";
 import {useEffect, useState} from "react";
 import i18n from "../../../i18n";
+import {ArticleImages} from "../../../components/content/images/articleImages";
 
 export const Article = () => {
   const {id} = useParams()
@@ -171,6 +172,7 @@ export const Article = () => {
               />
             </>
           </Card>
+	        <ArticleImages article={id} />
         </Card>
       </Col>
     </Row>
