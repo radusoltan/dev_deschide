@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model implements TranslatableContract
@@ -63,5 +64,10 @@ class Article extends Model implements TranslatableContract
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function images(): BelongsToMany
+    {
+        return $this->belongsToMany(Image::class,'article_images');
     }
 }

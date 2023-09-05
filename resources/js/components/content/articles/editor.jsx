@@ -29,6 +29,7 @@ export const BodyEditor = ({initialValue, onEdit, field}) => {
         'alignright alignjustify | bullist numlist outdent indent | ' +
         'removeformat | help |'+
         'image',
+      extended_valid_elements: 'p[class=class-1 class-2 new-class]',
     }}
   />
 }
