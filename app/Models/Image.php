@@ -25,13 +25,12 @@ class Image extends Model implements TranslatableContract
 
     public function articles(): BelongsToMany
     {
-        return $this->belongsToMany(Article::class);
+        return $this->belongsToMany(Article::class, 'article_images');
     }
 
     public function thumbnails(): HasMany
     {
         return $this->hasMany(ImageThumbnail::class,'image_id','id');
     }
-
 
 }

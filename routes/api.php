@@ -3,6 +3,8 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageController;
+use App\Models\Rendition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +32,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/articles', ArticleController::class);
     Route::get('/articles/{article}/images', [ArticleController::class, 'getArticleImages']);
     Route::post('/articles/{article}/images', [ArticleController::class, 'addArticleImages']);
+    Route::delete('/articles/{article}/images/{image}', [ArticleController::class, 'deleteArticleImage']);
+    Route::put('/articles/{article}/images/{image}/main',[ArticleController::class, 'setArticleMainImage']);
+
+    Route::get('/images/{image}/thumbnails', [ImageController::class, 'getThumbnails']);
+    Route::post('/images/{image}/crop', [ImageController::class, 'cropImage']);
+
+    Route::get('/renditions', function(){
+        return Rendition::all();
+    });
 
 
 

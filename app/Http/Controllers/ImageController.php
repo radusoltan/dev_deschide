@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreImageRequest;
 use App\Http\Requests\UpdateImageRequest;
+use App\Http\Services\ImageService;
 use App\Models\Image;
+use App\Models\ImageThumbnail;
+use App\Models\Rendition;
+use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
+    private $service;
+    public function __construct(){
+        $this->service = new ImageService();
+    }
     /**
      * Display a listing of the resource.
      */
@@ -37,7 +45,7 @@ class ImageController extends Controller
      */
     public function show(Image $image)
     {
-        //
+        return $image;
     }
 
     /**
@@ -62,5 +70,25 @@ class ImageController extends Controller
     public function destroy(Image $image)
     {
         //
+    }
+
+    public function getThumbnails(Image $image)
+    {
+        return $image->thumbnails()->get();
+    }
+
+    public function cropImage(Request $request,Image $image)
+    {
+        $rendition = Rendition::find($request->rendition);
+        $crop = $request->crop;
+        $this->service->crop(
+            $image,
+            $rendition,
+            $crop
+        );
+        return ImageThumbnail::where([
+            ['rendition_id', $rendition->id],
+            ['image_id', $image->id]
+        ])->first();
     }
 }

@@ -6,6 +6,8 @@ use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Http\Services\ImageService;
 use App\Models\Article;
+use App\Models\ArticleImage;
+use App\Models\Image;
 use Illuminate\Support\Str;
 
 class ArticleController extends Controller
@@ -97,6 +99,36 @@ class ArticleController extends Controller
                 $article->images()->attach($image->id);
             }
         }
+        return $article->images()->with('thumbnails')->get();
+    }
+
+    public function deleteArticleImage(Article $article, Image $image)
+    {
+        $article->images()->detach($image->id);
+        return $article->images()->with('thumbnails')->get();
+    }
+
+    public function setArticleMainImage(Article $article, Image $image){
+
+        $articleImages = ArticleImage::where('article_id',$article->id)
+            ->where('is_main',true)
+            ->get();
+        if ($articleImages->count() > 0){
+            foreach ($articleImages as $img){
+                $img->update([
+                    'is_main' => false
+                ]);
+            }
+        }
+
+        $mainImage = ArticleImage::where('article_id',$article->id)
+            ->where('image_id',$image->id)
+            ->first();
+
+        $mainImage->update([
+            'is_main' => true
+        ]);
+
         return $article->images()->with('thumbnails')->get();
     }
 

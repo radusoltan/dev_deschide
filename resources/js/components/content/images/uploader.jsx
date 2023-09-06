@@ -26,6 +26,7 @@ export const ImageUploader = ({open, onOk, onCancel, id})=>{
 			const body = new FormData()
 			imageList.forEach( file => { body.append('images[]',file) })
 			uploadArticleImages({id, body})
+      onOk()
 		}}
 		onCancel={onCancel}
 	>
