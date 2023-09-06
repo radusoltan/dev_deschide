@@ -68,6 +68,6 @@ class Article extends Model implements TranslatableContract
 
     public function images(): BelongsToMany
     {
-        return $this->belongsToMany(Image::class,'article_images');
+        return $this->belongsToMany(Image::class,'article_images')->withPivot('is_main');
     }
 }

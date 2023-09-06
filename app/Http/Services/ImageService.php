@@ -55,4 +55,41 @@ class ImageService
 
     }
 
+    public function crop(Image $image,Rendition $rendition, array $crop){
+        $name = $image->name;
+        $destinationPath = storage_path('app/public/images/thumbnails');
+        $img = ImageManager::make(storage_path('app/public/images/'.$name));
+
+        $width = round($image->width / 100 * $crop['p']['width']);
+        $height = round($image->height / 100 * $crop['p']['height']);
+        $x = round($image->width / 100 * $crop['p']['x']);
+        $y = round($image->height / 100 * $crop['p']['y']);
+
+        $cropped = $img->crop($width, $height, $x, $y)->fit($rendition->width, $rendition->height)
+            ->save($destinationPath.'/'.$rendition->name.'_'.$name, 100, 'jpg');
+        $thumb = ImageThumbnail::where([
+            ['rendition_id', $rendition->id],
+            ['image_id', $image->id]
+        ])->first();
+
+        $thumb->update([
+            'path' => 'storage/images/thumbnails/'.$rendition->name.'_'.$name,
+            'width' => $rendition->width,
+            'height' => $rendition->height,
+            'coords' => json_encode($crop['p'])
+        ]);
+
+        if (!$thumb){
+            $thumb =ImageThumbnail::create([
+                'image_id' => $image->id,
+                'rendition_id' => $rendition->id,
+                'width' => $cropped->width(),
+                'height' => $cropped->height(),
+                'path' => 'storage/images/thumbnails/'.$rendition->name.'_'.$name,
+                'coords' => json_encode($crop['p'])
+            ]);
+        }
+
+    }
+
 }
